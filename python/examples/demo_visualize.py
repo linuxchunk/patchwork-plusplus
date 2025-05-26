@@ -5,13 +5,14 @@ import open3d as o3d
 import pypatchworkpp
 
 cur_dir = os.path.dirname(os.path.abspath(__file__))
-input_cloud_filepath = os.path.join(cur_dir, "../../data/000000.bin")
+input_cloud_filepath = os.path.join(cur_dir, "/home/ramesh/.ros/21_5_nunnari_ouside.pcd")
 
 
 def read_bin(bin_path):
-    scan = np.fromfile(bin_path, dtype=np.float32)
-    scan = scan.reshape((-1, 4))
-
+    # scan = np.fromfile(bin_path, dtype=np.float64)
+    # scan = scan.reshape((-1, 4))
+    scan = np.asarray(o3d.io.read_point_cloud(bin_path).points)
+    print("pcd shape and data type", scan.shape, scan.dtype)
     return scan
 
 
